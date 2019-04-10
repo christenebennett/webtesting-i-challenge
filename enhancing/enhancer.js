@@ -5,23 +5,39 @@ module.exports = {
   get,
 };
 
-const expected = {
-  name: "Good Shield",
-  durability: 100,
-  displayName: "[+3] Good Shield"
-};
 
 function succeed(item) {
-  return { ...item };
+  if(item.enhancement < 20) {
+    item.enhancement++;
+    return { ...item };
+  } else {
+    item.enhancement = 20;
+    return { ...item };
+    
+  }
 }
 
 function fail(item) {
-  return { ...item };
+  if (item.enhancement >= 15) {
+    console.log(item)
+    item.durability = item.durability - 10;
+    console.log(item)
+    if (item.enhancement > 16) {
+      item.enhancement = item.enhancement - 1
+      return { ...item };
+    } else {
+      return { ...item };
+    }
+  } else {
+    item.durability = item.durability - 5;
+    return { ...item };
+  }
 }
 
 function repair(item) {
   item.durability = 100;
   return { ...item };
+  // return item.durability;
   
 }
 
