@@ -6,13 +6,30 @@ module.exports = {
 };
 
 function succeed(item) {
-  if(item.enhancement < 20) {
-    item.enhancement++;
-    return { ...item };
-  } else {
+
+  if (item.enhancement >= 20) {
     item.enhancement = 20;
     return { ...item };
+  } else if (item.enhancement < 0) {
+    item.enhancement = 0;
+    return { ...item };
+  } else {
+    item.enhancement++;
+    return { ...item };
   }
+
+  // if (item.enhancement < 0) {
+  //   // if enhancement is somehow less than 0, 
+  //   // return item object with enhancement set to 0
+  //   item.enhancement = 0;
+  //   return { ...item };
+  // } else if (item.enhancement < 20 && item.enhancement > 0) {
+  //   item.enhancement++;
+  //   return { ...item };
+  // } else {
+  //   item.enhancement = 20;
+  //   return { ...item };
+  // }
 }
 
 function fail(item) {
@@ -44,6 +61,14 @@ function repair(item) {
 }
 
 function get(item) {
-  return { ...item };
+  if (item.enhancement === 0){
+    return { ...item };
+  } else if (item.enhancement > 0) {
+    item.name = `[+${item.enhancement}] ${item.name}`
+    return { ...item };
+  } else {
+    item.enhancement = 0;
+    return { ...item };
+  }
 }
 
