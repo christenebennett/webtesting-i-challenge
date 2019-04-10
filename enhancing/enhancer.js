@@ -5,7 +5,6 @@ module.exports = {
   get,
 };
 
-
 function succeed(item) {
   if(item.enhancement < 20) {
     item.enhancement++;
@@ -13,15 +12,15 @@ function succeed(item) {
   } else {
     item.enhancement = 20;
     return { ...item };
-    
   }
 }
 
 function fail(item) {
   if (item.enhancement >= 15) {
-    console.log(item)
     item.durability = item.durability - 10;
-    console.log(item)
+    if (item.durability < 0) {
+      item.durability = 0;
+    }
     if (item.enhancement > 16) {
       item.enhancement = item.enhancement - 1
       return { ...item };
@@ -30,15 +29,18 @@ function fail(item) {
     }
   } else {
     item.durability = item.durability - 5;
-    return { ...item };
+    if (item.durability < 0) {
+      item.durability = 0;
+      return { ...item };
+    } else {
+      return { ...item }
+    }
   }
 }
 
 function repair(item) {
   item.durability = 100;
   return { ...item };
-  // return item.durability;
-  
 }
 
 function get(item) {
